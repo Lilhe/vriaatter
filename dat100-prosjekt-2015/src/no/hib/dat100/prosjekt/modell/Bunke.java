@@ -23,7 +23,8 @@ public class Bunke extends KortSamling {
 	 * 
 	 */
 	public Kort trekk() {
-		throw new RuntimeException("trekk ikke implementert");
+		Kort temp = taSiste();
+		return temp;
 	}
 
 	/**
@@ -34,6 +35,7 @@ public class Bunke extends KortSamling {
 	 * 
 	 */
 	public Kort topp() {
-		throw new RuntimeException("topp ikke implementert");
+		Kort temp = seSiste();
+		return temp;
 	}
 }
