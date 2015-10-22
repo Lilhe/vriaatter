@@ -23,16 +23,7 @@ public class Hand extends KortSamling {
 	 */
 	@Override
 	public void leggTil(Kort kort) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		super.leggTil(kort);
-=======
-		samling[antall] = kort;
-=======
-		samling [antall] = kort;
->>>>>>> 725c1cebcb9e2cac21c8ddfc91ac23443da81437
-		antall++;
->>>>>>> 4027132e012852c8399689b8a9a61f2ed346d61f
 	}
 
 	/**
