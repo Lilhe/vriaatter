@@ -85,6 +85,7 @@ public abstract class Spiller implements ISpiller {
 
 	@Override
 	public void trekker(Kort kort) {
-		throw new RuntimeException("trekker ikke implementert");
+		leggTilKort(kort);
+		antallTrekk++;
 	}
 }
