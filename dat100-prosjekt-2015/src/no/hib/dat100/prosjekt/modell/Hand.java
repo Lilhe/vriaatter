@@ -24,6 +24,7 @@ public class Hand extends KortSamling {
 	@Override
 	public void leggTil(Kort kort) {
 		super.leggTil(kort);
+		sorter();
 	}
 
 	/**

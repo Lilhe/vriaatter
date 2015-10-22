@@ -23,8 +23,8 @@ public class TestHand {
 		Kort kort3 = new Kort(Kortfarge.Hjerter,3);
 		
 		hand.leggTil(kort1);
-		hand.leggTil(kort2);
 		hand.leggTil(kort3);
+		hand.leggTil(kort2);
 		
 		ArrayList<Kort> kortliste = hand.toArrayList();
 		
