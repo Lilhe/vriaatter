@@ -14,6 +14,12 @@ import no.hib.dat100.prosjekt.modell.Kort;
 public class Spill {
 
 	// legg til objektvariable her
+	private ISpiller nord;
+	private ISpiller syd;
+	
+	private Bunke tilBunke;
+	private Bunke fraBunke;
+	
 	
 	/**
 	 * Gir referanse/peker til syd.
@@ -21,7 +27,7 @@ public class Spill {
 	 * @return referanse/peker til syd.
 	 */
 	public ISpiller getSyd() {
-		throw new RuntimeException("getSyd ikke implementert");
+		return syd;
 	}
 
 	/**
@@ -30,7 +36,7 @@ public class Spill {
 	 * @return referanse/peker til nord.
 	 */
 	public ISpiller getNord() {
-		throw new RuntimeException("getNord ikke implementert");
+		return nord;
 	}
 
 	/**
@@ -39,11 +45,11 @@ public class Spill {
 	 * @return referanse/peker til til-bunken.
 	 */
 	public Bunke getBunkeTil() {
-		throw new RuntimeException("getBunkeTil ikke implementert");
+		return tilBunke;
 	}
 
 	public Bunke getBunkeFra() {
-		throw new RuntimeException("getBunkeFra ikke implementert");
+		return fraBunke;
 	}
 
 	/**
@@ -56,8 +62,21 @@ public class Spill {
 	 * av en klasse laget av gruppen.
 	 */
 	public void start() {
-
-		throw new RuntimeException("start ikke implementert");
+		nord = new RandomSpiller(Spillere.NORD);
+		syd = new FirstFitSpiller(Spillere.SYD);
+		
+		tilBunke = new Bunke();
+		fraBunke = new Bunke();
+		
+		fraBunke.leggTilAlle();
+		fraBunke.stokk();
+		
+		delutKort();
+		
+		vendOverste();
+		
+		nord.setAntallTrekk(0);
+		syd.setAntallTrekk(0);
 	}
 
 	/**
@@ -65,8 +84,10 @@ public class Spill {
 	 * 
 	 */
 	private void delutKort() {
-
-		throw new RuntimeException("delutKort ikke implementert");
+		while (syd.getAntallKort() < Regler.antallKortVedStart()) {
+		nord.trekker(fraBunke.trekk());
+		syd.trekker(fraBunke.trekk());
+		}
 	}
 
 	/**
@@ -74,7 +95,7 @@ public class Spill {
 	 * billedsiden opp, men det trenger ikke gruppen tenke pÂ).
 	 */
 	private void vendOverste() {
-		throw new RuntimeException("vendOverste ikke implementert");
+		tilBunke.leggTil(fraBunke.trekk());
 	}
 
 	/**
@@ -84,8 +105,12 @@ public class Spill {
 	 * til-bunken. Det vil nÂr vÊre det eneste kortet i til-bunken.
 	 */
 	public void snuTilBunken() {
-
-		throw new RuntimeException("snuTilBunken ikke implementert");
+		for (int i = 0; i < tilBunke.getAntalKort(); i++) {
+			fraBunke.leggTil(tilBunke.getSamling()[i]);
+		}
+		tilBunke.fjernAlle();
+		tilBunke.leggTil(fraBunke.taSiste());
+		fraBunke.stokk();
 	}
 
 	/**
@@ -99,8 +124,11 @@ public class Spill {
 	 * @return kortet som trekkes.
 	 */
 	public Kort trekkFraBunke(ISpiller spiller) {
-
-		throw new RuntimeException("trekkFraBunke ikke implementert");
+		if (fraBunke.erTom()) {
+			snuTilBunken();
+		}
+		spiller.trekker(fraBunke.seSiste());
+		return fraBunke.taSiste();
 	}
 
 	/**
@@ -109,7 +137,7 @@ public class Spill {
 	 * @return true om til-bunken er tom, false ellers.
 	 */
 	public boolean bunketilTom() {
-		throw new RuntimeException("bunkeTilTom ikke implementert");
+		return tilBunke.erTom();
 	}
 
 	/**
@@ -118,7 +146,7 @@ public class Spill {
 	 * @return true om fra-bunken er tom, false ellers.
 	 */
 	public boolean bunkefraTom() {
-		throw new RuntimeException("bunkeFraTom ikke implementert");
+		return fraBunke.erTom();
 	}
 
 	/**
@@ -127,7 +155,7 @@ public class Spill {
 	 * @return antall kort nord har pÂ hÂnden.
 	 */
 	public int antallNord() {
-		throw new RuntimeException("antallNord ikke implementert");
+		return nord.getAntallKort();
 	}
 
 	/**
@@ -136,7 +164,7 @@ public class Spill {
 	 * @return antall kort i fra-bunken.
 	 */
 	public int antallBunkeFra() {
-		throw new RuntimeException("antallBunkeFra ikke implementert");
+		return fraBunke.getAntalKort();
 	}
 
 	/**
@@ -145,7 +173,7 @@ public class Spill {
 	 * @return antall kort i til-bunken.
 	 */
 	public int antallBunkeTil() {
-		throw new RuntimeException("antallBunkeTil ikke implementert");
+		return tilBunke.getAntalKort();
 	}
 
 	/**
@@ -155,7 +183,7 @@ public class Spill {
 	 * @return ¯verste kortet i til-bunken.
 	 */
 	public Kort seOverste() {
-		throw new RuntimeException("seOverste ikke implementert");
+		return tilBunke.seSiste();
 	}
 
 	/**
@@ -164,7 +192,7 @@ public class Spill {
 	 * @return syds hand som en ArrayList av Kort.
 	 */
 	public ArrayList<Kort> getSydHand() {
-		throw new RuntimeException("getSydHand ikke implementert");
+		return syd.getHand().toArrayList();
 	}
 
 	/**
@@ -176,7 +204,7 @@ public class Spill {
 	 * @return handlingen som blir utf¯rt.
 	 */
 	public Handling nesteHandling(ISpiller spiller) {
-		throw new RuntimeException("nesteHandling ikke implementert");
+		return spiller.nesteHandling(tilBunke.seSiste());
 	}
 
 	/**
@@ -192,7 +220,13 @@ public class Spill {
 	 * @return true dersom spilleren har kortet, false ellers.
 	 */
 	public boolean leggnedKort(ISpiller spiller, Kort kort) {
-		throw new RuntimeException("leggnedKort ikke implementert");
+		if (spiller.getHand().har(kort)) {
+			spiller.fjernKort(kort);
+			tilBunke.leggTil(kort);
+			spiller.setAntallTrekk(0);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -203,7 +237,8 @@ public class Spill {
 	 *            spilleren som er i tur.
 	 */
 	public void forbiSpiller(ISpiller spiller) {
-		throw new RuntimeException("forbiSpiller ikke implementert");
+		utforHandling(spiller, new Handling(HandlingsType.FORBI, null));
+		spiller.setAntallTrekk(0);
 	}
 
 	/**
@@ -218,8 +253,15 @@ public class Spill {
 	 * @return kort som trekkes, kort som spilles eller null ved forbi.
 	 */
 	public Kort utforHandling(ISpiller spiller, Handling handling) {
-
-		throw new RuntimeException("utforHandling ikke implementert");
+		if (handling.getType() == HandlingsType.LEGGNED) {
+			spiller.fjernKort(handling.getKort());
+			return handling.getKort();
+		} else if (handling.getType() == HandlingsType.TREKK) {
+			spiller.trekker(fraBunke.taSiste());
+			spiller.setAntallTrekk(spiller.getAntallTrekk()+1);
+			return handling.getKort();
+		}
+		return null;
 	}
 
 	/**
@@ -231,7 +273,7 @@ public class Spill {
 	 * @return true dersom kortet er lovlig Â spille, false ellers.
 	 */
 	public boolean nedkortSyd(Kort kort) {
-		throw new RuntimeException("nedkortSyd ikke implementert");
+		return leggnedKort(syd, kort);
 	}
 
 	/**
