@@ -17,7 +17,12 @@ public abstract class KortSamling {
 	public static final int MAKS_KORT_FARGE = 3;
 	private final int MAKS_KORT = 4 * MAKS_KORT_FARGE;
 
+	// egne objektvariabler
+	
+	// oppretter tabell for kort
 	public Kort[] samling;
+	
+	// oppretter variabel som holder telling på kort
 	public int antall;
 	
 	/**
