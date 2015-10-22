@@ -2,6 +2,8 @@ package no.hib.dat100.prosjekt.modell;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Struktur for Â lagre ei samling kort. Kan lagre hele kortstokken. Det finnes
@@ -81,7 +83,8 @@ public abstract class KortSamling {
 	 * Fjerner alle korta fra samlinga slik at den blir tom.
 	 */
 	public void fjernAlle() {
-		samling = new Kort[MAKS_KORT];
+		Arrays.fill(samling, null);
+		antall = 0;
 	}
 
 	/**
@@ -125,12 +128,8 @@ public abstract class KortSamling {
 	 * @return true om kortet finst i samlinga, false ellers.
 	 */
 	public boolean har(Kort kort) {
-		for (int i = 0; i < antall; i++) {
-			if (samling[i].compareTo(kort) == 0) {
-				return true;
-			}
-		}
-		return false;
+		ArrayList<Kort> temp = toArrayList();
+		return temp.contains(kort);
 	}
 
 	/**
@@ -142,13 +141,10 @@ public abstract class KortSamling {
 	 *            ingenting.
 	 */
 	public void fjern(Kort kort) {
-		for (int i = 0; i < antall; i++) {
-			if (samling[i].compareTo(kort) == 0) {
-				ArrayList<Kort> temp = toArrayList();
-				temp.remove(i);
-				samling = temp.toArray(samling);
-			}
-		}
+		ArrayList<Kort> temp = toArrayList();
+		temp.remove(kort);
+		samling = temp.toArray(samling);
+		antall--;
 	}
 
 	/**
@@ -157,7 +153,9 @@ public abstract class KortSamling {
 	 * 
 	 */
 	public void stokk() {
-		ArrayList<Kort> =
+		ArrayList<Kort> temp = toArrayList();
+		Collections.shuffle(temp, new Random(System.nanoTime()));
+		samling = temp.toArray(samling);
 	}
 
 	/**
@@ -167,8 +165,10 @@ public abstract class KortSamling {
 	 *         som i kortsamlinga.
 	 */
 	public ArrayList<Kort> toArrayList() {
-		ArrayList<Kort> arrayList = new ArrayList<Kort>(Arrays.asList(samling));
-		
-		return arrayList;
+		ArrayList<Kort> temp = new ArrayList<Kort>();
+		for (int i = 0; i < antall; i++) {
+			temp.add(samling[i]);
+		}
+		return temp;
 	}
 }
