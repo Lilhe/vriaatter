@@ -15,8 +15,8 @@ public abstract class KortSamling {
 	public static final int MAKS_KORT_FARGE = 3;
 	private final int MAKS_KORT = 4 * MAKS_KORT_FARGE;
 
-	private Kort[] samling;
-	private int antall;
+	public Kort[] samling;
+	public int antall;
 	
 	/**
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).

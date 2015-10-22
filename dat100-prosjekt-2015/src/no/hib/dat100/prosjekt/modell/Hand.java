@@ -23,7 +23,8 @@ public class Hand extends KortSamling {
 	 */
 	@Override
 	public void leggTil(Kort kort) {
-		throw new RuntimeException("leggTil ikke implementert");
+		samling[antall] = kort;
+		antall++;
 	}
 
 	/**
