@@ -1,6 +1,7 @@
 package no.hib.dat100.prosjekt.modell;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Struktur for Â lagre ei samling kort. Kan lagre hele kortstokken. Det finnes
@@ -14,13 +15,15 @@ public abstract class KortSamling {
 	public static final int MAKS_KORT_FARGE = 3;
 	private final int MAKS_KORT = 4 * MAKS_KORT_FARGE;
 
-	// legg til objektvariable her
-
+	private Kort[] samling;
+	private int antall;
+	
 	/**
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).
 	 */
 	public KortSamling() {
-		throw new RuntimeException("kortsamling ikke implementert");
+		samling = new Kort[MAKS_KORT];
+		antall = 0;
 	}
 
 	/**
@@ -29,7 +32,10 @@ public abstract class KortSamling {
 	 * @return true om samlinga er tom, false ellers.
 	 */
 	public boolean erTom() {
-		throw new RuntimeException("erTom ikke implementert");
+		if (antall == 0) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -42,7 +48,7 @@ public abstract class KortSamling {
 	 * @return tabell av kort.
 	 */
 	public Kort[] getSamling() {
-		throw new RuntimeException("getSamling ikke implementert");
+		return samling;
 	}
 
 	/**
@@ -51,7 +57,7 @@ public abstract class KortSamling {
 	 * @return antall kort i samlinga.
 	 */
 	public int getAntalKort() {
-		throw new RuntimeException("getAntalKort ikke implementert");
+		return antall;
 	}
 
 	/**
@@ -59,14 +65,23 @@ public abstract class KortSamling {
 	 * slik at de normalt mÂ stokkes f¯r bruk.
 	 */
 	public void leggTilAlle() {
-		throw new RuntimeException("leggTilAlle ikke implementert");
+		for (int i = 0; i < MAKS_KORT_FARGE; i++) {
+			samling[antall] = new Kort(Kortfarge.Hjerter, i);
+			antall++;
+			samling[antall] = new Kort(Kortfarge.Klover, i);
+			antall++;
+			samling[antall] = new Kort(Kortfarge.Ruter, i);
+			antall++;
+			samling[antall] = new Kort(Kortfarge.Spar, i);
+			antall++;
+		}
 	}
 
 	/**
 	 * Fjerner alle korta fra samlinga slik at den blir tom.
 	 */
 	public void fjernAlle() {
-		throw new RuntimeException("fjernAlle ikke implementert");
+		samling = new Kort[MAKS_KORT];
 	}
 
 	/**
@@ -76,7 +91,8 @@ public abstract class KortSamling {
 	 *            er kortet som skal leggast til.
 	 */
 	public void leggTil(Kort kort) {
-		throw new RuntimeException("leggTil ikke implementert");
+		samling[antall] = kort;
+		antall++;
 	}
 
 	/**
@@ -85,7 +101,7 @@ public abstract class KortSamling {
 	 * @return siste kortet i samlinga, men det blir ikke fjernet.
 	 */
 	public Kort seSiste() {
-		throw new RuntimeException("seSiste ikke implementert");
+		return samling[antall-1];
 	}
 
 	/**
@@ -95,8 +111,10 @@ public abstract class KortSamling {
 	 *         null.
 	 */
 	public Kort taSiste() {
-		
-		throw new RuntimeException("taSiste ikke implementert");
+		antall--;
+		Kort temp = samling[antall];
+		samling[antall] = null;
+		return temp;
 	}
 
 	/**
@@ -107,8 +125,12 @@ public abstract class KortSamling {
 	 * @return true om kortet finst i samlinga, false ellers.
 	 */
 	public boolean har(Kort kort) {
-
-		throw new RuntimeException("har ikke implementert");
+		for (int i = 0; i < antall; i++) {
+			if (samling[i].compareTo(kort) == 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -120,7 +142,13 @@ public abstract class KortSamling {
 	 *            ingenting.
 	 */
 	public void fjern(Kort kort) {
-		throw new RuntimeException("fjern ikke implementert");
+		for (int i = 0; i < antall; i++) {
+			if (samling[i].compareTo(kort) == 0) {
+				ArrayList<Kort> temp = toArrayList();
+				temp.remove(i);
+				samling = temp.toArray(samling);
+			}
+		}
 	}
 
 	/**
@@ -129,7 +157,7 @@ public abstract class KortSamling {
 	 * 
 	 */
 	public void stokk() {
-		throw new RuntimeException("stokk ikke implementert");
+		ArrayList<Kort> =
 	}
 
 	/**
@@ -139,7 +167,8 @@ public abstract class KortSamling {
 	 *         som i kortsamlinga.
 	 */
 	public ArrayList<Kort> toArrayList() {
+		ArrayList<Kort> arrayList = new ArrayList<Kort>(Arrays.asList(samling));
 		
-		throw new RuntimeException("toArrayList ikke implementert");
+		return arrayList;
 	}
 }
