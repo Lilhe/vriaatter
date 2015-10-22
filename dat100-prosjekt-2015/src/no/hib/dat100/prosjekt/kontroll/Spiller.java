@@ -16,13 +16,18 @@ import no.hib.dat100.prosjekt.modell.Kort;
 public abstract class Spiller implements ISpiller {
 
 	// legg til objektvariable her
-
+	
+	public Spillere spiller;
+	public Hand hand;
+	public int antallTrekk;
 	/**
 	 * Standard konstrukt¯r som oppretter en Spiller med en hÂnd uten kort,
 	 * antalltrekk som 0 og setter spiller til Spillere.INGEN.
 	 */
 	public Spiller() {
-		throw new RuntimeException("Spiller kontruktør ikke implementert");
+		spiller = Spillere.INGEN;
+		hand = new Hand();
+		antallTrekk = 0;
 	}
 
 	/**
@@ -33,49 +38,49 @@ public abstract class Spiller implements ISpiller {
 	 *            hvilken spiller det er.
 	 */
 	public Spiller(Spillere spiller) {
-		throw new RuntimeException("Spiller konstruktør ikke implementert");
+		this.spiller = spiller;
 	}
 
 	@Override
 	public int getAntallKort() {
-		throw new RuntimeException("getAntallKort ikke implementert");
+		return hand.getAntalKort();
 	}
 
 	@Override
 	public Hand getHand() {
-		throw new RuntimeException("getHand ikke implementert");
+		return hand;
 	}
 
 	public int getAntallTrekk() {
-		throw new RuntimeException("getAntallTrekk ikke implementert");
+		return antallTrekk;
 	}
 
 	public Spillere hvem() {
-		throw new RuntimeException("hvem ikke implementert");
+		return spiller;
 	}
 
 	public void setAntallTrekk(int t) {
-		throw new RuntimeException("setAntallTrekk ikke implementert");
+		antallTrekk = t;
 	}
 
 	@Override
 	public boolean erFerdig() {
-		throw new RuntimeException("erFerdig ikke implementert");
+		return hand.getAntalKort() == 0;
 	}
 
 	@Override
 	public void leggTilKort(Kort kort) {
-		throw new RuntimeException("leggTilkort ikke implementert");
+		hand.leggTil(kort);
 	}
 
 	@Override
 	public void fjernKort(Kort kort) {
-		throw new RuntimeException("fjernKort ikke implementert");
+		hand.fjern(kort);
 	}
 
 	@Override
 	public void fjernAlleKort() {
-		throw new RuntimeException("fjernAlleKort ikke implementert");
+		hand.fjernAlle();
 	}
 
 	@Override
