@@ -144,6 +144,7 @@ public abstract class KortSamling {
 		ArrayList<Kort> temp = toArrayList();
 		temp.remove(kort);
 		samling = temp.toArray(samling);
+		antall--;
 	}
 
 	/**
