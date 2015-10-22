@@ -14,16 +14,16 @@ import java.util.Random;
  */
 public abstract class KortSamling {
 
-	public static final int MAKS_KORT_FARGE = 3;
+	public static final int MAKS_KORT_FARGE = 13;
 	private final int MAKS_KORT = 4 * MAKS_KORT_FARGE;
 
 	// egne objektvariabler
 	
 	// oppretter tabell for kort
-	public Kort[] samling;
+	private Kort[] samling;
 	
 	// oppretter variabel som holder telling på kort
-	public int antall;
+	private int antall;
 	
 	/**
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).
@@ -56,6 +56,10 @@ public abstract class KortSamling {
 	 */
 	public Kort[] getSamling() {
 		return samling;
+	}
+	
+	public void setSamling(Kort[] samling) {
+		this.samling = samling;
 	}
 
 	/**

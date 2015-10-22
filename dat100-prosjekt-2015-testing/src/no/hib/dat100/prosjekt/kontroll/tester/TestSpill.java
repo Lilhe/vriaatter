@@ -91,9 +91,13 @@ public class TestSpill {
 		
 		int antallspiller = spiller.getAntallKort();
 		int antallbunke = bunkefra.getAntalKort();
+		System.out.println(spiller.getAntallTrekk());
+
 		
 		spill.trekkFraBunke(spiller);
-		
+				
+		System.out.println(spiller.getAntallTrekk());
+
 		assertEquals(spiller.getAntallKort(),antallspiller+1);
 		assertEquals(spiller.getAntallTrekk(),1);
 		assertEquals(bunkefra.getAntalKort(),antallbunke-1);

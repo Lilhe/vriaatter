@@ -61,6 +61,8 @@ public class TestFirstFitSpiller {
 		spiller.leggTilKort(kort2);
 		spiller.leggTilKort(kort3);
 		
+
+		
 		Handling handling = spiller.nesteHandling(new Kort (Kortfarge.Spar,7));
 		
 		assertEquals(handling.getType(), HandlingsType.LEGGNED);

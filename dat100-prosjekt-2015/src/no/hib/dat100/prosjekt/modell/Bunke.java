@@ -23,8 +23,7 @@ public class Bunke extends KortSamling {
 	 * 
 	 */
 	public Kort trekk() {
-		Kort temp = taSiste();
-		return temp;
+		return taSiste();
 	}
 
 	/**
@@ -35,7 +34,6 @@ public class Bunke extends KortSamling {
 	 * 
 	 */
 	public Kort topp() {
-		Kort temp = seSiste();
-		return temp;
+		return seSiste();
 	}
 }
