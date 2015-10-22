@@ -33,7 +33,24 @@ public class FirstFitSpiller extends Spiller {
 	 */
 	@Override
 	public Handling nesteHandling(Kort topp) {
-
-		throw new RuntimeException("nesteHandling ikke implementert");
+		if (hand.erTom()) {
+			return new Handling(HandlingsType.TREKK, null);
+		}
+		
+		for (int i = 0; i < hand.getAntalKort(); i++) {
+			if (hand.getSamling()[i].getVerdi() == 8) {
+				return new Handling(HandlingsType.LEGGNED, hand.getSamling()[i]);
+			} else if (hand.getSamling()[i].sammeFarge(topp)) {
+				return new Handling(HandlingsType.LEGGNED, hand.getSamling()[i]);
+			} else if (hand.getSamling()[i].sammeVerdi(topp)) {
+				return new Handling(HandlingsType.LEGGNED, hand.getSamling()[i]);
+			} 
+		}
+		
+		if (super.getAntallTrekk() < 1) {
+			return new Handling(HandlingsType.TREKK, null);
+		}
+		
+		return new Handling(HandlingsType.FORBI, null);
 	}
 }
