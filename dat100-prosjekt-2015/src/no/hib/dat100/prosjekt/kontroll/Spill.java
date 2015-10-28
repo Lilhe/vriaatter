@@ -254,7 +254,7 @@ public class Spill {
 	 */
 	public Kort utforHandling(ISpiller spiller, Handling handling) {
 		if (handling.getType() == HandlingsType.LEGGNED) {
-			spiller.fjernKort(handling.getKort());
+			leggnedKort(spiller, handling.getKort());
 			return handling.getKort();
 		} else if (handling.getType() == HandlingsType.TREKK) {
 			spiller.trekker(fraBunke.taSiste());
@@ -282,6 +282,15 @@ public class Spill {
 	 * @return kort som blir foreslÂtt.
 	 */
 	public Kort foreslaaKortSyd() {
-		throw new RuntimeException("foreslaaKortSyd ikke implementert");
+		for (int i = 0; i < syd.getAntallKort(); i++) {
+			if (syd.getHand().getSamling()[i].getVerdi() == 8) {
+				return syd.getHand().getSamling()[i];
+			} else if (seOverste().sammeFarge(syd.getHand().getSamling()[i])) {
+				return syd.getHand().getSamling()[i];
+			} else if (seOverste().sammeVerdi(syd.getHand().getSamling()[i])) {
+				return syd.getHand().getSamling()[i];
+			}
+		}
+		return null;
 	}
 }
